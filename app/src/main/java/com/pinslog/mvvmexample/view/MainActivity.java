@@ -1,7 +1,8 @@
-package com.pinslog.mvvmexample;
+package com.pinslog.mvvmexample.view;
 
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pinslog.mvvmexample.adapter.MainRecyclerAdapter;
 import com.pinslog.mvvmexample.base.BaseActivity;
-import com.pinslog.mvvmexample.data.model.PostResponse;
 import com.pinslog.mvvmexample.databinding.ActivityMainBinding;
 import com.pinslog.mvvmexample.viewmodel.MainViewModel;
 
-import java.util.List;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private static final String TAG = "MainActivity2";
 
@@ -42,9 +43,28 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected void initData() {
         super.initData();
         mainViewModel.loadPosts();
-        mainViewModel.getPosts().observe(this, postResponses -> {
-            Log.d(TAG, "initData: " + postResponses.get(0).getTitle());
-            adapter.setItems(postResponses);
+        mainViewModel.getMutableData().observe(this, response -> {
+            switch (response.getStatus()){
+                case SUCCESS:
+                    adapter.setItems(response.getData());
+                    break;
+                case FAIL:
+                    Toast.makeText(mContext, "데이터를 받아올 수 없음", Toast.LENGTH_SHORT).show();
+                    break;
+                case ERROR:
+                    response.getThrowable().printStackTrace();
+                    break;
+            }
+
+        });
+    }
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        binding.mainMoveBtn.setOnClickListener(v->{
+            Intent intent = getPackageManager().getLaunchIntentForPackage("kr.jeios.motioncoremobile");
+            startActivity(intent);
         });
     }
 }

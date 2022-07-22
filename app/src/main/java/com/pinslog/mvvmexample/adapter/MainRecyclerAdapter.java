@@ -1,6 +1,8 @@
 package com.pinslog.mvvmexample.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pinslog.mvvmexample.data.model.PostResponse;
 import com.pinslog.mvvmexample.databinding.ItemPostBinding;
+import com.pinslog.mvvmexample.view.SubActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +58,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public ItemViewHolder(@NonNull ItemPostBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+            Context mContext = binding.getRoot().getContext();
+            binding.getRoot().setOnClickListener(v->{
+                Intent intent = new Intent(mContext, SubActivity.class);
+                PostResponse post = postList.get(getAdapterPosition());
+                intent.putExtra("id", post.getId());
+                mContext.startActivity(intent);
+            });
         }
 
         void onBind(PostResponse post){

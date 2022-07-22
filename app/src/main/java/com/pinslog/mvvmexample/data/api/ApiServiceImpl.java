@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
-public class ApiServiceImpl implements ApiService{
+public class ApiServiceImpl implements ApiService {
 
     private final ApiService apiService;
 
@@ -32,4 +32,5 @@ public class ApiServiceImpl implements ApiService{
     public Call<List<PostResponse>> getPostList() {
         return apiService.getPostList();
     }
+
 }
