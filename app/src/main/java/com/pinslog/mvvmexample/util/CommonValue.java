@@ -41,4 +41,14 @@ public class CommonValue<T> {
     public Throwable getThrowable() {
         return throwable;
     }
+
+    @Override
+    public String toString() {
+        return "CommonValue{" +
+                "status=" + status +
+                ", data=" + data +
+                ", message='" + message + '\'' +
+                ", throwable=" + throwable +
+                '}';
+    }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.pinslog.mvvmexample.viewmodel.SubViewModel;
 public class SubFragment extends BaseFragment<FragmentSubBinding> {
 
     private SubViewModel subViewModel;
+    private int userId;
 
     @Override
     protected FragmentSubBinding getViewBinding(LayoutInflater inflater, ViewGroup container) {
@@ -28,13 +30,24 @@ public class SubFragment extends BaseFragment<FragmentSubBinding> {
     @Override
     protected void initSetting() {
         super.initSetting();
+        userId = SubFragmentArgs.fromBundle(getArguments()).getPostId();
         subViewModel = new ViewModelProvider(this).get(SubViewModel.class);
+    }
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        binding.subModifyBtn.setOnClickListener(v->{
+            SubFragmentDirections.ActionSubFragmentToWriteFragment action
+                    = SubFragmentDirections.actionSubFragmentToWriteFragment(userId);
+            Navigation.findNavController(binding.getRoot()).navigate(action);
+        });
     }
 
     @Override
     protected void initData() {
         super.initData();
-        int userId = SubFragmentArgs.fromBundle(getArguments()).getPostId();
+
         subViewModel.loadPost(userId);
         subViewModel.getMutableData().observe(this, postResponse -> {
             switch (postResponse.getStatus()) {

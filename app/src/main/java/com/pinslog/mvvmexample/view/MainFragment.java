@@ -5,9 +5,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.pinslog.mvvmexample.util.CommonValue;
 import com.pinslog.mvvmexample.util.RetrofitInstance;
 import com.pinslog.mvvmexample.util.Status;
 import com.pinslog.mvvmexample.viewmodel.MainViewModel;
+import com.pinslog.mvvmexample.viewmodel.UpdateViewModel;
 
 import io.reactivex.disposables.Disposable;
 
@@ -49,9 +52,10 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
     }
 
     @Override
-    protected void initData() {
-        super.initData();
+    protected void initViewModel() {
+        super.initViewModel();
         mainViewModel.getMutableData().observe(this, response -> {
+
             switch (response.getStatus()){
                 case SUCCESS:
                     adapter.setItems(response.getData());
@@ -67,9 +71,9 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
     }
 
     @Override
-    protected void initListener() {
-        super.initListener();
-        binding.mainMoveBtn.setOnClickListener(v->{
-        });
+    protected void initData() {
+        super.initData();
+        mainViewModel.loadPosts();
     }
+
 }

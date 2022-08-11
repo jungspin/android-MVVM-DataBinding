@@ -13,6 +13,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".view.SubFragment">
 
         <com.google.android.material.card.MaterialCardView
@@ -57,10 +58,22 @@
                     android:text="@{@string/post_title(post.body)}"
                     android:lineSpacingExtra="4dp"/>
 
+                <Button
+                    android:id="@+id/sub_modify_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginTop="8dp"
+                    android:text="수정하기"
+                    />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+
         </com.google.android.material.card.MaterialCardView>
+
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
