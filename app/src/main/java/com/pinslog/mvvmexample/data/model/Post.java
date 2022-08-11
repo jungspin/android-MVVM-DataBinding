@@ -2,7 +2,7 @@ package com.pinslog.mvvmexample.data.model;
 
 import androidx.annotation.NonNull;
 
-public class PostResponse {
+public class Post {
 
     private int userId;
     private int id;

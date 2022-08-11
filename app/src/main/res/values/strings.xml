@@ -3,4 +3,9 @@
     <string name="title_activity_main2">MainActivity2</string>
 
     <string name="post_id">id : %d</string>
+    <string name="post_user_id">user id : %d</string>
+    <string name="post_title">title : %s</string>
+    <string name="post_content">content : %s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -10,10 +10,10 @@
             type="com.pinslog.mvvmexample.data.model.Post" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.SubTestActivity">
+        tools:context=".view.SubFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="350dp"
@@ -62,5 +62,5 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

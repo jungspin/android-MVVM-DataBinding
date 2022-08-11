@@ -1,6 +1,6 @@
 package com.pinslog.mvvmexample.data.api;
 
-import com.pinslog.mvvmexample.data.model.PostResponse;
+import com.pinslog.mvvmexample.data.model.Post;
 import com.pinslog.mvvmexample.util.RetrofitInstance;
 
 import java.util.List;
@@ -19,18 +19,23 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
-    public Single<PostResponse> getPost(int id) {
+    public Single<Post> getPost(int id) {
         return apiService.getPost(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Single<List<PostResponse>> getPosts() {
-        return apiService.getPosts().subscribeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread());
+    public Single<List<Post>> getPosts() {
+        return apiService.getPosts().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Call<List<PostResponse>> getPostList() {
+    public Call<List<Post>> getPostList() {
         return apiService.getPostList();
+    }
+
+    @Override
+    public Single<Post> writePost(Post post) {
+        return apiService.writePost(post).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }

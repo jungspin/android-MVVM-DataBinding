@@ -6,7 +6,7 @@
     <data>
         <variable
             name="post"
-            type="com.pinslog.mvvmexample.data.model.PostResponse" />
+            type="com.pinslog.mvvmexample.data.model.Post" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
