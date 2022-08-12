@@ -1,12 +1,10 @@
 package com.pinslog.mvvmexample.view;
 
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,9 +57,10 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
     }
 
     @Override
-    protected void initData() {
-        super.initData();
+    protected void initViewModel() {
+        super.initViewModel();
         mainViewModel.getMutableData().observe(this, response -> {
+
             switch (response.getStatus()){
                 case SUCCESS:
                     adapter.setItems(response.getData());
@@ -77,10 +76,9 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
     }
 
     @Override
-    protected void initListener() {
-        super.initListener();
-        binding.mainMoveBtn.setOnClickListener(v->{
-        });
+    protected void initData() {
+        super.initData();
+        mainViewModel.loadPosts();
     }
 
     // enabled – The default enabled state for this callback.

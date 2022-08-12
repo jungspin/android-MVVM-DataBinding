@@ -32,14 +32,21 @@ public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
 
         initListener();
         initSetting();
-        initData();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initViewModel();
+        initData();
     }
 
     protected abstract VB getViewBinding(LayoutInflater inflater, ViewGroup container);
     protected void initListener(){}
     protected void initSetting(){}
     protected void initData(){}
+    protected void initViewModel(){};
 
     @Override
     public void onDestroyView() {

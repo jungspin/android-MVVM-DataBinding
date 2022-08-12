@@ -22,5 +22,17 @@
             android:name="postId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_subFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/writeFragment"
+        android:name="com.pinslog.mvvmexample.view.UpdateFragment"
+        android:label="fragment_write"
+        tools:layout="@layout/fragment_update" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
     </fragment>
 </navigation>
