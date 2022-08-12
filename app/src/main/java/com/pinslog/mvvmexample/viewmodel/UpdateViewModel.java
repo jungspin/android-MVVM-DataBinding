@@ -12,7 +12,6 @@ import com.pinslog.mvvmexample.util.Status;
 import java.util.Locale;
 
 public class UpdateViewModel extends BaseViewModel<CommonValue<Post>> {
-    public static final String TAG = "UpdateViewModel";
     @Override
     protected void getData() {
 
@@ -20,9 +19,7 @@ public class UpdateViewModel extends BaseViewModel<CommonValue<Post>> {
     private final ApiServiceImpl service = new ApiServiceImpl(RetrofitInstance.getInstance());
 
     public void updatePost(Post post){
-        Log.d(TAG, "updatePost: " + post);
         disposable = service.writePost(post).subscribe(response -> {
-            Log.d(TAG, "updatePost: " + response);
             mutableData.setValue(new CommonValue<>(Status.SUCCESS, response));
         }, throwable -> {
 

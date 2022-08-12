@@ -1,13 +1,18 @@
 package com.pinslog.mvvmexample.view;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
 
+import com.pinslog.mvvmexample.R;
 import com.pinslog.mvvmexample.base.BaseFragment;
 import com.pinslog.mvvmexample.data.model.Post;
 import com.pinslog.mvvmexample.databinding.FragmentUpdateBinding;
@@ -29,6 +34,7 @@ public class UpdateFragment extends BaseFragment<FragmentUpdateBinding> {
     @Override
     protected void initSetting() {
         super.initSetting();
+
         userId = UpdateFragmentArgs.fromBundle(getArguments()).getUserId();
     }
 
@@ -43,7 +49,6 @@ public class UpdateFragment extends BaseFragment<FragmentUpdateBinding> {
         super.initViewModel();
         viewModel = new ViewModelProvider(requireActivity()).get(UpdateViewModel.class);
         viewModel.getMutableData().observe(getViewLifecycleOwner(), data -> {
-            Log.d(UpdateViewModel.TAG, "initViewModel: " + data.toString());
             switch (data.getStatus()) {
                 case SUCCESS:
                     post = data.getData();
@@ -66,9 +71,8 @@ public class UpdateFragment extends BaseFragment<FragmentUpdateBinding> {
         @Override
         public void handleOnBackPressed() {
             post.setBody(binding.writeEt.getText().toString());
-            Log.d(UpdateViewModel.TAG, "handleOnBackPressed: " + post);
             viewModel.updatePost(post);
-            Navigation.findNavController(binding.getRoot()).popBackStack();
+            requireActivity().onBackPressed();
         }
     };
 }

@@ -23,6 +23,7 @@
             android:background="@null"
             android:padding="10dp"
             android:gravity="top"
+            android:transitionName="test"
             android:hint="글을 작성해보세요"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

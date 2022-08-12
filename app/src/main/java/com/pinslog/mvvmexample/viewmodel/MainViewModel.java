@@ -10,7 +10,6 @@ import com.pinslog.mvvmexample.util.Status;
 import java.util.List;
 
 public class MainViewModel extends BaseViewModel<CommonValue<List<Post>>> {
-    private static final String TAG = "MainViewModel";
 
     private final ApiServiceImpl apiService = new ApiServiceImpl(RetrofitInstance.getInstance());
 

@@ -1,21 +1,17 @@
 package com.pinslog.mvvmexample.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pinslog.mvvmexample.data.model.Post;
 import com.pinslog.mvvmexample.databinding.ItemPostBinding;
-import com.pinslog.mvvmexample.view.MainFragment;
 import com.pinslog.mvvmexample.view.MainFragmentDirections;
-import com.pinslog.mvvmexample.view.SubActivity;
-import com.pinslog.mvvmexample.view.SubTestActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +32,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder){
+            ((ItemViewHolder) holder).binding.itemPostImg.setTransitionName("name"+position);
             ((ItemViewHolder) holder).onBind(postList.get(holder.getAdapterPosition()));
         }
     }
@@ -62,9 +59,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             binding.getRoot().setOnClickListener(v->{
                 Post post = postList.get(getAdapterPosition());
-                MainFragmentDirections.ActionMainFragmentToSubFragment action = MainFragmentDirections.actionMainFragmentToSubFragment();
+                MainFragmentDirections.ActionMainFragmentToSubFragment action
+                        = MainFragmentDirections.actionMainFragmentToSubFragment(binding.itemPostImg.getTransitionName());
                 action.setPostId(post.getId());
-                Navigation.findNavController(binding.getRoot()).navigate(action);
+
+                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                        .addSharedElement(binding.itemPostImg, binding.itemPostImg.getTransitionName())
+                        .build();
+                Navigation.findNavController(binding.getRoot()).navigate(action, extras);
             });
         }
 

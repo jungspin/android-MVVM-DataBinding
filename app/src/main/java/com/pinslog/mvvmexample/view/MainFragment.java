@@ -1,10 +1,12 @@
 package com.pinslog.mvvmexample.view;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -85,7 +87,7 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
     private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
         @Override
         public void handleOnBackPressed() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
             builder.setMessage("앱을 종료하시겠습니까?")
                     .setPositiveButton("앱 종료", (dialogInterface, i) -> requireActivity().finish())
                     .setNegativeButton("취소", (dialogInterface, i) -> dialogInterface.dismiss())
