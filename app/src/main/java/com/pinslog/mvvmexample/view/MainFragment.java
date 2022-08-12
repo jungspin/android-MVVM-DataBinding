@@ -1,8 +1,12 @@
 package com.pinslog.mvvmexample.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +34,12 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
 
     private MainRecyclerAdapter adapter;
     private MainViewModel mainViewModel;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+    }
 
     @Override
     protected FragmentMainBinding getViewBinding(LayoutInflater inflater, ViewGroup container) {
@@ -72,4 +82,17 @@ public class MainFragment extends BaseFragment<FragmentMainBinding> {
         binding.mainMoveBtn.setOnClickListener(v->{
         });
     }
+
+    // enabled – The default enabled state for this callback.
+    private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setMessage("앱을 종료하시겠습니까?")
+                    .setPositiveButton("앱 종료", (dialogInterface, i) -> requireActivity().finish())
+                    .setNegativeButton("취소", (dialogInterface, i) -> dialogInterface.dismiss())
+                    .create()
+                    .show();
+        }
+    };
 }
